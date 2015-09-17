@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Practice</display-name>
      <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext*.xml</param-value>
@@ -51,7 +51,7 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!-- Spring 刷新Introspector防止内存泄露 -->
+    <!-- Spring refresh Introspector to Prevent memory leaks-->
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>

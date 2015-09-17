@@ -7,28 +7,20 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
-   <!-- 默认的注解映射的支持 -->  
    <mvc:annotation-driven /> 
-   <!-- 自动扫描的包名 -->  
    <context:component-scan base-package="org.theme.web.controller"></context:component-scan>  
    <context:component-scan base-package="org.theme.web.service"></context:component-scan> 
    <context:component-scan base-package="org.theme.shiro.realm"></context:component-scan> 
-    <!--<context:component-scan base-package="cn.zhl.activiti.web.service"></context:component-scan>-->
-    <!-- 视图解释类 -->  
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
         <property name="prefix" value="/WEB-INF/views/"/>  
         <property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->  
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />  
     </bean>   
-    <!-- 文件上传解释器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     	<property name="defaultEncoding" value="utf-8" />
         <property name="maxUploadSize" value="104857600"/>
         <property name="maxInMemorySize" value="4096"/>
-    </bean>
-    <!-- 对静态资源文件的访问  方案一 （二选一） -->  
- 	<!--    <mvc:default-servlet-handler/>   -->
-    <!-- 对静态资源文件的访问  方案二 （二选一）-->  
+    </bean> 
     <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>  
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
     <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/> 
