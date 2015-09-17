@@ -40,11 +40,9 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
 	<!-- 配置事务异常封装 -->
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
 	<!-- 声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -54,7 +52,6 @@
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-
 	<aop:config expose-proxy="true">
 		<!-- 只对业务逻辑层实施事务 -->
 		<aop:pointcut id="txPointcut"
@@ -62,37 +59,10 @@
 		<!-- Advisor定义，切入点和通知分别为txPointcut、txAdvice -->
 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" />
 	</aop:config>
-
 	<bean id="userRepository" class="org.theme.web.repository.UserSessionableRepository">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-	 <bean id="securityManager"
-        class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="shiroDbRealm" />
-    </bean>
-    
-    <!-- 項目自定义的Realm -->
-    <bean id="shiroDbRealm" class="org.theme.shiro.realm.ShiroDbRealm" ></bean>
-    
-    <!-- Shiro Filter -->
-    <bean id="shiroFilter"
-        class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/" />
-        <property name="successUrl" value="/system/main" />
-        <property name="unauthorizedUrl" value="/system/error" />
-        <property name="filterChainDefinitions">
-            <value>
-            /login = anon
-            /deploy = anon
-            /user = anon
-            /** = authc
-            </value>
-        </property>
-    </bean>
-    
-    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="dataSource" />
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="databaseSchemaUpdate" value="true" />
@@ -100,16 +70,22 @@
 		<property name="mailServerPort" value="5025" />
 		<property name="jobExecutorActivate" value="false" />
 	</bean>
-
-	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
+		destroy-method="destroy">
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
 	</bean>
-  
-    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
-    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
-    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
-    <bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
-    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
-    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
-    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+	<bean id="repositoryService" factory-bean="processEngine"
+		factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine"
+		factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine"
+		factory-method="getTaskService" />
+	<bean id="formService" factory-bean="processEngine"
+		factory-method="getFormService" />
+	<bean id="historyService" factory-bean="processEngine"
+		factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine"
+		factory-method="getManagementService" />
+	<bean id="identityService" factory-bean="processEngine"
+		factory-method="getIdentityService" />
 </beans>

@@ -32,25 +32,4 @@
     <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>  
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
     <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/> 
-    <!-- Shiro Begin -->
-    <bean
-        class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-        depends-on="lifecycleBeanPostProcessor" />
-    <bean
-        class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager" />
-    </bean>
-    
-    <bean id="lifecycleBeanPostProcessor"
-        class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-
-    <!-- shiro为集成spring -->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="exceptionMappings">
-            <props>
-                <prop key="org.apache.shiro.authz.UnauthorizedException">/error/500</prop>
-            </props>
-        </property>
-    </bean> 
-    <!-- Shiro End -->
 </beans>
