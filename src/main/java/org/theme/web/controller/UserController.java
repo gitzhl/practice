@@ -1,5 +1,6 @@
 package org.theme.web.controller;
 
+import org.activiti.engine.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired(required = false)
+	private RepositoryService repositoryService;
+
+	 
 	@RequestMapping(value = "/user",method = RequestMethod.GET)
 	public String findUser(@RequestParam(name = "id") long id,Model model){
 		User user = userService.getUser(id);
@@ -22,4 +27,14 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "user/detail";
 	}
+	
+
+    @RequestMapping(value = "/deploy")
+    public String deploy() {
+    	repositoryService.createDeployment()
+        .addClasspathResource("diagrams/Leave.bpmn")
+        .addClasspathResource("diagrams/Leave.png")
+        .deploy();
+        return "deploy/detail";
+    }
 }

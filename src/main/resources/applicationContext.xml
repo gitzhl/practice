@@ -85,6 +85,7 @@
         <property name="filterChainDefinitions">
             <value>
             /login = anon
+            /deploy = anon
             /validateCode = anon
             /** = authc
             </value>
