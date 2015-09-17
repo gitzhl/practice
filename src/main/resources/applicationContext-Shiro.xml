@@ -12,10 +12,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="shiroDbRealm" />
-    </bean>
-    <bean id="shiroDbRealm" class="org.theme.shiro.realm.ShiroDbRealm" ></bean>
-    <bean id="shiroFilter"
-        class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+</bean>
+<bean id="shiroDbRealm" class="org.theme.shiro.realm.ShiroDbRealm" ></bean>
+<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
         <property name="loginUrl" value="/" />
         <property name="successUrl" value="/system/main" />
@@ -28,17 +27,17 @@
             /** = authc
             </value>
         </property>
-    </bean>
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+</bean>
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />
+<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager" />
-    </bean>
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+</bean>
+<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="org.apache.shiro.authz.UnauthorizedException">/error/500</prop>
             </props>
         </property>
-    </bean> 
+</bean> 
 </beans>

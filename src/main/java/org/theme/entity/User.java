@@ -83,5 +83,11 @@ public class User {
 	public void setRoleList(List<String> roleList) {
 		this.roleList = roleList;
 	}
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
 	
 }

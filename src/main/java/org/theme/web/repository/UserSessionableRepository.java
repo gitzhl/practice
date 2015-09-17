@@ -19,4 +19,8 @@ public class UserSessionableRepository implements UserRepository {
 		return (User) sessionFactory.getCurrentSession().createQuery("from User user where user.loginName = ?")
 				.setString(1, loginName).uniqueResult();
 	}
+
+	public void save(User user) {
+		sessionFactory.getCurrentSession().save(user);
+	}
 }

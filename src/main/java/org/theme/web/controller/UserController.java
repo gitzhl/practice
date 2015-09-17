@@ -1,6 +1,11 @@
 package org.theme.web.controller;
 
-import org.activiti.engine.RepositoryService;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.codec.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,26 +20,27 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@Autowired(required = false)
-	private RepositoryService repositoryService;
-
 	 
 	@RequestMapping(value = "/user",method = RequestMethod.GET)
 	public String findUser(@RequestParam(name = "id") long id,Model model){
 		User user = userService.getUser(id);
-		System.out.println(user.getName());
 		model.addAttribute("user",user);
 		return "user/detail";
 	}
 	
-
-    @RequestMapping(value = "/deploy")
-    public String deploy() {
-    	repositoryService.createDeployment()
-        .addClasspathResource("diagrams/Leave.bpmn")
-        .addClasspathResource("diagrams/Leave.png")
-        .deploy();
-        return "deploy/detail";
-    }
+	@RequestMapping(value = "/reg",method = RequestMethod.POST)
+	public String register(HttpServletRequest req) throws UnsupportedEncodingException{
+		String loginName = req.getParameter("loginName");
+		String name = req.getParameter("name");
+		String password = req.getParameter("loginName");
+		User user = new User();
+		user.setLoginName(loginName);
+		user.setName(name);
+		user.setPassword(password);
+		user.setSalt(Hex.encodeToString(name.getBytes("utf-8")));
+		user.setRoles("user");
+		user.setRegisterDate(new Date());
+		userService.save(user);
+		return "register/detail";
+	}
 }

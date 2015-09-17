@@ -19,4 +19,8 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findUserByLoginName(loginName);
 	}
 
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
 }

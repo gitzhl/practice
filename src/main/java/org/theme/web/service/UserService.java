@@ -8,4 +8,5 @@ public interface UserService {
     public static final int SALT_SIZE = 8;
 	public User getUser(long id);
 	public User findUserByLoginName(String loginName);
+	public void save(User user);
 }
