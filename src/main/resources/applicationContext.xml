@@ -86,7 +86,7 @@
             <value>
             /login = anon
             /deploy = anon
-            /validateCode = anon
+            /user = anon
             /** = authc
             </value>
         </property>

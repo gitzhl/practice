@@ -1,8 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
 
--- ----------------------------
--- Table structure for `act_evt_log`
--- ----------------------------
 DROP TABLE IF EXISTS `act_evt_log`;
 CREATE TABLE `act_evt_log` (
   `LOG_NR_` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -20,13 +17,6 @@ CREATE TABLE `act_evt_log` (
   PRIMARY KEY (`LOG_NR_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- ----------------------------
--- Records of act_evt_log
--- ----------------------------
-
--- ----------------------------
--- Table structure for `act_ge_bytearray`
--- ----------------------------
 DROP TABLE IF EXISTS `act_ge_bytearray`;
 CREATE TABLE `act_ge_bytearray` (
   `ID_` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -630,7 +620,7 @@ CREATE TABLE `t_user` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   `login_name` varchar(16) NOT NULL,
-  `passworld` varchar(16) NOT NULL,
+  `password` varchar(16) NOT NULL,
   `salt` varchar(64) NOT NULL,
   `register_date` datetime NOT NULL,
   `roles` varchar(128) NOT NULL,
@@ -640,4 +630,4 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'tom', 'tom', 'sssssvvvvvv', 'sdfsf222fsdaf2f2f', '0000-00-00 00:00:00', 'admin,leader');
+INSERT INTO `t_user` VALUES ('1', 'tom', 'tom', 'sssssvvvvvv', 'sdfsf222fsdaf2f2f', '2015-09-17 17:32:01', 'admin,leader');

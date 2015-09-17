@@ -11,7 +11,8 @@
    <mvc:annotation-driven /> 
    <!-- 自动扫描的包名 -->  
    <context:component-scan base-package="org.theme.web.controller"></context:component-scan>  
-   <context:component-scan base-package="org.theme.web.service"></context:component-scan>  
+   <context:component-scan base-package="org.theme.web.service"></context:component-scan> 
+   <context:component-scan base-package="org.theme.shiro.realm"></context:component-scan> 
     <!--<context:component-scan base-package="cn.zhl.activiti.web.service"></context:component-scan>-->
     <!-- 视图解释类 -->  
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  

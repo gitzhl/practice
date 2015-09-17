@@ -23,11 +23,13 @@ import org.apache.shiro.codec.Hex;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.theme.entity.User;
 import org.theme.web.service.UserService;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 	
+	@Autowired
 	private UserService userService;
 
 	/**
