@@ -105,9 +105,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		/**
 		 * 重载hashCode,只计算loginName;
 		 */
-		
-		
-
 		@Override
         public int hashCode() {
             final int prime = 31;

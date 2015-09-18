@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.theme.entity.User;
 import org.theme.web.service.UserService;
 
@@ -43,6 +44,13 @@ public class AccountController {
 		user.setRegisterDate(new Date());
 		userService.save(user);
 		return "account/result";
+	}
+	
+	@RequestMapping(value = "/checkLoginName")
+	@ResponseBody
+	public String checkLoginName(@RequestParam(value = "loginName") String loginName){
+		if(userService.findUserByLoginName(loginName) == null) return "false";
+		return "true";
 	}
 	
 	@RequestMapping(value = "/reg",method = RequestMethod.GET)

@@ -5,16 +5,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Refresh" content="3; url=http://www.baidu.com"/> 
+<meta http-equiv="Refresh" content="3; url=activiti/main"/> 
 <title>注册结果</title>
 <script type="text/javascript">
-	var sec = parseInt(document.getElementById("sec").innerHTML);
-	var interval = setInterval("countdown()",1000);
+	
+	var interval;
 	function countdown(){
-		sec--;
-		document.getElementById("sec").innerHTML = sec;
+		var sec = parseInt(document.getElementById("sec").innerHTML);
+		document.getElementById("sec").innerHTML=sec;
 		if(sec == 0) clearInterval(interval);
+		sec--;
 	}
+	
+	function onl(){
+		interval = setInterval("countdown()",1000);
+	}
+	onl();
 </script>
 </head>
 <body>
