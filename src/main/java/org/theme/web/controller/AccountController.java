@@ -5,7 +5,12 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.codec.Hex;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,10 +40,12 @@ public class AccountController {
 		String loginName = req.getParameter("loginName");
 		String name = req.getParameter("name");
 		String password = req.getParameter("loginName");
+		String email = req.getParameter("email");
 		User user = new User();
 		user.setLoginName(loginName);
 		user.setName(name);
-		user.setPassword(password);
+		user.setPassword(new Md5Hash(password).toHex());
+		user.setEmail(email);
 		user.setSalt(Hex.encodeToString(name.getBytes("utf-8")));
 		user.setRoles("user");
 		user.setRegisterDate(new Date());
@@ -65,6 +72,15 @@ public class AccountController {
 	
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public String login(HttpServletRequest req){
-		return "account/login";
+		String username = req.getParameter("username");
+		String password  = req.getParameter("password");
+		UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+		Subject subject = SecurityUtils.getSubject();
+		try {
+			subject.login(token);
+			return login();
+		} catch (AuthenticationException e) {
+		}
+		return "redirect:/activiti/main";
 	}
 }
