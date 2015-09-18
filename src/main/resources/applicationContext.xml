@@ -60,8 +60,6 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="databaseSchemaUpdate" value="true" />
-		<property name="mailServerHost" value="localhost" />
-		<property name="mailServerPort" value="5025" />
 		<property name="jobExecutorActivate" value="false" />
 	</bean>
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"

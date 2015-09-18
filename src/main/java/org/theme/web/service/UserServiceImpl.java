@@ -22,5 +22,4 @@ public class UserServiceImpl implements UserService{
 	public void save(User user) {
 		userRepository.save(user);
 	}
-
 }

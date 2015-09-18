@@ -16,13 +16,14 @@
 <bean id="shiroDbRealm" class="org.theme.shiro.realm.ShiroDbRealm" ></bean>
 <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/" />
-        <property name="successUrl" value="/system/main" />
-        <property name="unauthorizedUrl" value="/system/error" />
+        <property name="loginUrl" value="/security/login" />
+        <property name="successUrl" value="/activiti/main" />
+        <property name="unauthorizedUrl" value="/error/500" />
         <property name="filterChainDefinitions">
             <value>
             /login = anon
             /deploy = anon
+            /security/reg = anon
             /user = anon
             /** = authc
             </value>
