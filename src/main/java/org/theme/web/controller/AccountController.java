@@ -1,24 +1,24 @@
 package org.theme.web.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.codec.Hex;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.theme.entity.User;
+import org.theme.web.command.LoginCommand;
+import org.theme.web.command.SignupCommand;
 import org.theme.web.service.UserService;
 
 @Controller
@@ -36,20 +36,11 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/reg",method = RequestMethod.POST)
-	public String reg(HttpServletRequest req) throws UnsupportedEncodingException{
-		String loginName = req.getParameter("loginName");
-		String name = req.getParameter("name");
-		String password = req.getParameter("loginName");
-		String email = req.getParameter("email");
-		User user = new User();
-		user.setLoginName(loginName);
-		user.setName(name);
-		user.setPassword(new Md5Hash(password).toHex());
-		user.setEmail(email);
-		user.setSalt(Hex.encodeToString(name.getBytes("utf-8")));
-		user.setRoles("user");
-		user.setRegisterDate(new Date());
-		userService.save(user);
+	public String reg(Model model,@ModelAttribute SignupCommand command,BindingResult errors) throws UnsupportedEncodingException{
+		if(errors.hasErrors()){
+			return reg(model,command);
+		}
+		userService.save(command);
 		return "account/result";
 	}
 	
@@ -62,28 +53,24 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/reg",method = RequestMethod.GET)
-	public String reg(){
+	public String reg(Model model,@ModelAttribute SignupCommand command){
 		return "account/reg";
 	}
 	
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public String login(){
+	public String login(Model model,@ModelAttribute LoginCommand command){
 		return "account/login";
 	}
 	
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public String login(HttpServletRequest req){
-		String username = req.getParameter("username");
-		String password  = req.getParameter("password");
-		UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+	public String login(Model model,@ModelAttribute LoginCommand command,BindingResult errors){
+		UsernamePasswordToken token = new UsernamePasswordToken(command.getUsername(),command.getPassword());
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
 			return "redirect:/activiti/main";
-			
 		} catch (AuthenticationException e) {
-			return login();
+			return login(model,command);
 		}
-		
 	}
 }

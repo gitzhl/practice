@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,15 +15,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div style="width:200px;height:100px;margin:200px auto;">
-	<form action="security/reg" method="post" onsubmit="return false;">
+	<form:form modelAttribute="signupCommand">
+	<form:errors path="*" element="div" cssClass="errors"/>
 	<ul style="list-style: none;">
-		<li>用户名:<input type="text" name="loginName" id="loginName"/></li>
-		<li>密&nbsp;&nbsp;&nbsp;码:<input type="password" name="password"/></li>
-		<li>姓&nbsp;&nbsp;&nbsp;名:<input type="text" name="name"/></li>
-		<li>邮&nbsp;&nbsp;&nbsp;箱:<input type="text" name="email"/></li>
+		<li>用户名:<form:input path="username"/></li>
+		<li>密&nbsp;&nbsp;&nbsp;码:<form:input path="password"/></li>
+		<li>姓&nbsp;&nbsp;&nbsp;名:<form:input path="name"/></li>
+		<li>邮&nbsp;&nbsp;&nbsp;箱:<form:input path="email"/></li>
 		<li><input type="submit" value="注册" onclick="regV();"/></li>
 	</ul>
-	</form>
+	</form:form>
 </div>
 </body>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
