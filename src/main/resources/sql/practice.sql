@@ -1,5 +1,23 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : custom
+Source Server Version : 50621
+Source Host           : localhost:3306
+Source Database       : practice
+
+Target Server Type    : MYSQL
+Target Server Version : 50621
+File Encoding         : 65001
+
+Date: 2015-09-21 16:35:29
+*/
+
 SET FOREIGN_KEY_CHECKS=0;
 
+-- ----------------------------
+-- Table structure for `act_evt_log`
+-- ----------------------------
 DROP TABLE IF EXISTS `act_evt_log`;
 CREATE TABLE `act_evt_log` (
   `LOG_NR_` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -17,6 +35,13 @@ CREATE TABLE `act_evt_log` (
   PRIMARY KEY (`LOG_NR_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- ----------------------------
+-- Records of act_evt_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `act_ge_bytearray`
+-- ----------------------------
 DROP TABLE IF EXISTS `act_ge_bytearray`;
 CREATE TABLE `act_ge_bytearray` (
   `ID_` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -50,7 +75,7 @@ CREATE TABLE `act_ge_property` (
 -- ----------------------------
 -- Records of act_ge_property
 -- ----------------------------
-INSERT INTO `act_ge_property` VALUES ('next.dbid', '2501', '2');
+INSERT INTO `act_ge_property` VALUES ('next.dbid', '20001', '9');
 INSERT INTO `act_ge_property` VALUES ('schema.history', 'create(5.17.0.2)', '1');
 INSERT INTO `act_ge_property` VALUES ('schema.version', '5.17.0.2', '1');
 
@@ -286,6 +311,8 @@ CREATE TABLE `act_id_group` (
 -- ----------------------------
 -- Records of act_id_group
 -- ----------------------------
+INSERT INTO `act_id_group` VALUES ('676f6e67', '1', null, null);
+INSERT INTO `act_id_group` VALUES ('user', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `act_id_info`
@@ -323,6 +350,16 @@ CREATE TABLE `act_id_membership` (
 -- ----------------------------
 -- Records of act_id_membership
 -- ----------------------------
+INSERT INTO `act_id_membership` VALUES ('gong', '676f6e67');
+INSERT INTO `act_id_membership` VALUES ('', 'user');
+INSERT INTO `act_id_membership` VALUES ('SDFSF', 'user');
+INSERT INTO `act_id_membership` VALUES ('admin', 'user');
+INSERT INTO `act_id_membership` VALUES ('lolo', 'user');
+INSERT INTO `act_id_membership` VALUES ('qiaoqiao', 'user');
+INSERT INTO `act_id_membership` VALUES ('sdfsfsfdsf', 'user');
+INSERT INTO `act_id_membership` VALUES ('sheai', 'user');
+INSERT INTO `act_id_membership` VALUES ('xiaopeng', 'user');
+INSERT INTO `act_id_membership` VALUES ('zhangph', 'user');
 
 -- ----------------------------
 -- Table structure for `act_id_user`
@@ -342,6 +379,17 @@ CREATE TABLE `act_id_user` (
 -- ----------------------------
 -- Records of act_id_user
 -- ----------------------------
+INSERT INTO `act_id_user` VALUES ('', '1', '', null, '', null, null);
+INSERT INTO `act_id_user` VALUES ('SDFSF', '1', '', null, '', null, null);
+INSERT INTO `act_id_user` VALUES ('admin', '1', '', null, '', null, null);
+INSERT INTO `act_id_user` VALUES ('dapeng', '1', null, null, null, null, null);
+INSERT INTO `act_id_user` VALUES ('gong', '1', '功', null, null, null, null);
+INSERT INTO `act_id_user` VALUES ('lolo', '1', '罗落', null, 'lolo@163.com', null, null);
+INSERT INTO `act_id_user` VALUES ('qiaoqiao', '1', null, null, null, null, null);
+INSERT INTO `act_id_user` VALUES ('sdfsfsfdsf', '1', 'fsfddsf', null, '', null, null);
+INSERT INTO `act_id_user` VALUES ('sheai', '1', '设爱', null, 'sheai@163.com', null, null);
+INSERT INTO `act_id_user` VALUES ('xiaopeng', '1', null, null, null, null, null);
+INSERT INTO `act_id_user` VALUES ('zhangph', '1', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `act_re_deployment`
@@ -620,14 +668,10 @@ CREATE TABLE `t_user` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   `login_name` varchar(16) NOT NULL,
-  `password` varchar(16) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `email` varchar(32) DEFAULT NULL,
   `salt` varchar(64) NOT NULL,
   `register_date` datetime NOT NULL,
   `roles` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of t_user
--- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'tom', 'tom', 'sssssvvvvvv', 'sdfsf222fsdaf2f2f', '2015-09-17 17:32:01', 'admin,leader');
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
