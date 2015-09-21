@@ -38,6 +38,7 @@
             /security/checkLoginName = anon
             /security/reg = anon
             /user = anon
+            /js/* = anon
             /** = authc
             </value>
         </property>

@@ -28,6 +28,10 @@ public class UserServiceImpl implements UserService{
 		syncToActiviti(user);
 	}
 	
+	/**
+	 * @see 同步用户信息到Activiti
+	 * @param user
+	 */
 	public void syncToActiviti(User user){
 		String role = user.getRoles().split(",")[0];
 		org.activiti.engine.identity.User identity = identityService.newUser(user.getLoginName());

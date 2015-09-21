@@ -13,15 +13,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div style="width:200px;height:100px;margin:200px auto;">
-	<form action="security/reg" method="post">
+	<form action="security/reg" method="post" onsubmit="return false;">
 	<ul style="list-style: none;">
-		<li>用户名:<input type="text" name="loginName"/></li>
+		<li>用户名:<input type="text" name="loginName" id="loginName"/></li>
 		<li>密&nbsp;&nbsp;&nbsp;码:<input type="password" name="password"/></li>
 		<li>姓&nbsp;&nbsp;&nbsp;名:<input type="text" name="name"/></li>
 		<li>邮&nbsp;&nbsp;&nbsp;箱:<input type="text" name="email"/></li>
-		<li><input type="submit" value="注册"/></li>
+		<li><input type="submit" value="注册" onclick="regV();"/></li>
 	</ul>
 	</form>
 </div>
 </body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/regValidate.js"></script>
 </html>

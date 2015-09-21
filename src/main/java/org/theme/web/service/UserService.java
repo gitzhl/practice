@@ -3,7 +3,7 @@ package org.theme.web.service;
 import org.theme.entity.User;
 
 public interface UserService {
-	public static final String HASH_ALGORITHM = "SHA-1";
+	public static final String HASH_ALGORITHM = "MD5";
     public static final int HASH_INTERATIONS = 1024;
     public static final int SALT_SIZE = 8;
 	public User getUser(long id);

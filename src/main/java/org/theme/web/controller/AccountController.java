@@ -53,11 +53,12 @@ public class AccountController {
 		return "account/result";
 	}
 	
-	@RequestMapping(value = "/checkLoginName")
+	@RequestMapping(value = "/checkLoginToken",method = RequestMethod.POST)
 	@ResponseBody
-	public String checkLoginName(@RequestParam(value = "loginName") String loginName){
-		if(userService.findUserByLoginName(loginName) == null) return "false";
-		return "true";
+	public String validateLoginName(@RequestParam(value = "loginName") String loginName){
+		if(userService.findUserByLoginName(loginName) == null) 
+			return "true";
+		return "false";
 	}
 	
 	@RequestMapping(value = "/reg",method = RequestMethod.GET)
@@ -78,9 +79,11 @@ public class AccountController {
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
-			return login();
+			return "redirect:/activiti/main";
+			
 		} catch (AuthenticationException e) {
+			return login();
 		}
-		return "redirect:/activiti/main";
+		
 	}
 }
