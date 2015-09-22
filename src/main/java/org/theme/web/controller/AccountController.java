@@ -70,6 +70,7 @@ public class AccountController {
 			subject.login(token);
 			return "redirect:/activiti/main";
 		} catch (AuthenticationException e) {
+			token.clear();
 			return login(model,command);
 		}
 	}

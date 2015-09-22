@@ -6,13 +6,10 @@ import org.theme.entity.User;
 public class UserSessionableRepository implements UserRepository {
 
 	private SessionFactory sessionFactory;
+	
 
 	public User getUser(long id) {
 		return (User) sessionFactory.getCurrentSession().get(User.class, id);
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
 	}
 
 	public User findUserByLoginName(String loginName) {
@@ -22,5 +19,11 @@ public class UserSessionableRepository implements UserRepository {
 
 	public void save(User user) {
 		sessionFactory.getCurrentSession().save(user);
+	}
+	
+
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

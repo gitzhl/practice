@@ -67,7 +67,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@PostConstruct
 	public void initCredentialsMatcher() {
 		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Md5Hash.ALGORITHM_NAME);
-		//matcher.setHashIterations(UserService.HASH_INTERATIONS);
 		setCredentialsMatcher(matcher);
 	}
 

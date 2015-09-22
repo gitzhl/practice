@@ -8,7 +8,6 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.identity.Group;
 import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
 	private IdentityService identityService;
 	
@@ -36,11 +34,13 @@ public class UserServiceImpl implements UserService{
 		User user = new User();
 		user.setName(command.getName());
 		user.setLoginName(command.getUsername());
-		user.setPassword(new Md5Hash(command.getPassword()).toString());
+		user.setPassword(new Md5Hash(command.getPassword()).toHex());
 		user.setRegisterDate(new Date());
 		user.setRoles("user");
+		//user.setRoles(Arrays.asList(new Role[]{role}));
 		user.setEmail(command.getEmail());
-		user.setSalt(Hex.encodeToString(ByteSource.Util.bytes(command.getUsername()).getBytes()));
+		//user.setSalt(Hex.encodeToString(ByteSource.Util.bytes(command.getUsername()).getBytes()));
+		user.setSalt(System.currentTimeMillis()+"");
 		userRepository.save(user);
 		syncToActiviti(user);
 	}
@@ -51,16 +51,15 @@ public class UserServiceImpl implements UserService{
 	 */
 	@Transactional
 	public void syncToActiviti(User user){
-		String role = user.getRoles().split(",")[0];
 		org.activiti.engine.identity.User identity = identityService.newUser(user.getLoginName());
 		identity.setEmail(user.getEmail());
 		identity.setFirstName(user.getName());
-		Group queryed = identityService.createGroupQuery().groupId(role).singleResult();
+		Group queryed = identityService.createGroupQuery().groupId(user.getRoles()).singleResult();
 		if(queryed == null){
-			queryed = identityService.newGroup(role);
+			queryed = identityService.newGroup(user.getRoles());
 			identityService.saveGroup(queryed);
 		}
 		identityService.saveUser(identity);
-		identityService.createMembership(user.getLoginName(), role);
+		identityService.createMembership(user.getLoginName(), user.getRoles());
 	}
 }

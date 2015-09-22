@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID",nullable = false, precision =18)
+	@Column(name = "ID",nullable = false)
 	private long id;
 	@Column(name = "NAME",unique = true,nullable = false)
 	private String name;
@@ -34,13 +34,13 @@ public class User {
 	private String email;
 	@Column(name = "SALT")
 	private String salt;
-	@Column(name = "ROLES")
-	private String roles;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "REGISTER_DATE")
 	private Date registerDate;
 	@Transient
 	private List<String> roleList;
+	@Column(name = "ROLES")
+	private String roles;
 	public long getId() {
 		return id;
 	}
@@ -79,24 +79,23 @@ public class User {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-	
-	public String getRoles() {
-		return roles;
-	}
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
-	public List<String> getRoleList() {
-		return Arrays.asList(getRoles().split(","));
-	}
-	public void setRoleList(List<String> roleList) {
-		this.roleList = roleList;
-	}
 	public Date getRegisterDate() {
 		return registerDate;
 	}
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+	public List<String> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<String> roleList) {
+		this.roleList = Arrays.asList(getRoles().split(","));
+	}
+	public String getRoles() {
+		return roles;
+	}
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 	
 }

@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<form:errors path="*" element="div" cssClass="errors"/>
 	<ul style="list-style: none;">
 		<li>用户名:<form:input path="username"/></li>
-		<li>密&nbsp;&nbsp;&nbsp;码:<form:input path="password"/></li>
+		<li>密&nbsp;&nbsp;&nbsp;码:<form:password path="password"/></li>
 		<li>姓&nbsp;&nbsp;&nbsp;名:<form:input path="name"/></li>
 		<li>邮&nbsp;&nbsp;&nbsp;箱:<form:input path="email"/></li>
 		<li><input type="submit" value="注册" onclick="regV();"/></li>
