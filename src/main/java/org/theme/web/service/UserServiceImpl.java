@@ -6,9 +6,7 @@ import javax.transaction.Transactional;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.identity.Group;
-import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.theme.entity.User;
@@ -37,9 +35,7 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(new Md5Hash(command.getPassword()).toHex());
 		user.setRegisterDate(new Date());
 		user.setRoles("user");
-		//user.setRoles(Arrays.asList(new Role[]{role}));
 		user.setEmail(command.getEmail());
-		//user.setSalt(Hex.encodeToString(ByteSource.Util.bytes(command.getUsername()).getBytes()));
 		user.setSalt(System.currentTimeMillis()+"");
 		userRepository.save(user);
 		syncToActiviti(user);

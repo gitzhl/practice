@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,7 @@ public class AccountController {
 	
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public String login(Model model,@ModelAttribute LoginCommand command,BindingResult errors){
-		UsernamePasswordToken token = new UsernamePasswordToken(command.getUsername(),command.getPassword());
+		UsernamePasswordToken token = new UsernamePasswordToken(command.getUsername(),new Md5Hash(command.getPassword()).toHex());
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
